@@ -4,4 +4,12 @@
 
 body {
   font-family: 'Nunito Sans', sans-serif;
+  min-width: 375px;
+  max-width: 1440px;
+
+  margin: 0 auto;
+}
+
+.box-shadow {
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 4%);
 }
