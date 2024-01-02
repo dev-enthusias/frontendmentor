@@ -1,14 +1,9 @@
-import {
-  Dispatch,
-  FormEvent,
-  MouseEvent,
-  createContext,
-  useState,
-} from "react";
+import { Dispatch, MouseEvent, createContext, useState } from "react";
 
-import { FaSearch, FaChevronDown } from "react-icons/fa";
+import { FaChevronDown } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import Navbar from "./components/Navbar";
+import SearchBar from "./components/SearchBar";
 
 interface ThemeValueProps {
   darkMode: boolean;
@@ -36,16 +31,6 @@ function App() {
     setIsRegionOptionDisplayed(!isRegionOptionsDisplayed);
   }
 
-  function handleInputChange(e: FormEvent<HTMLInputElement>) {
-    const filteredCountries = countries.filter((country: any) =>
-      country.name.common
-        .toLowerCase()
-        .includes(e.currentTarget.value.toLowerCase()),
-    );
-
-    setCountries(filteredCountries);
-  }
-
   function handleRegionClick(e: MouseEvent<HTMLButtonElement>) {
     const region = (e.target as HTMLButtonElement).textContent;
 
@@ -65,18 +50,7 @@ function App() {
 
       <main className="bg-grey-100 px-5 text-sm lg:px-12">
         <div className="mb-10 flex flex-col lg:flex-row lg:justify-between">
-          <div className="relative mb-10">
-            <input
-              type="search"
-              name="search"
-              placeholder="Search for a country"
-              className="box-shadow w-full rounded-md bg-white py-4 pl-12 pr-3 shadow-md"
-              onChange={handleInputChange}
-            />
-            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-200">
-              <FaSearch />
-            </span>
-          </div>
+          <SearchBar />
 
           <div className="relative w-3/5 font-semibold">
             <button
