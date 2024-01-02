@@ -4,10 +4,11 @@ import {
   MouseEvent,
   createContext,
   useState,
-} from 'react';
-import { IoMoonSharp, IoMoonOutline } from 'react-icons/io5';
-import { FaSearch, FaChevronDown } from 'react-icons/fa';
-import { useLoaderData } from 'react-router-dom';
+} from "react";
+
+import { FaSearch, FaChevronDown } from "react-icons/fa";
+import { useLoaderData } from "react-router-dom";
+import Navbar from "./components/Navbar";
 
 interface ThemeValueProps {
   darkMode: boolean;
@@ -17,20 +18,19 @@ interface ThemeValueProps {
 const ThemeContext = createContext<boolean | ThemeValueProps>(false);
 
 export async function loader() {
-  const response = await fetch('https://restcountries.com/v3.1/all');
+  const response = await fetch("https://restcountries.com/v3.1/all");
   return await response.json();
 }
 
 function App() {
   const apiData: any = useLoaderData();
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(false);
   //prettier-ignore
   const [isRegionOptionsDisplayed, setIsRegionOptionDisplayed] = useState(false);
   const [countries, setCountries] = useState<any>(apiData);
   const [region, setRegion] = useState<null | string>(null);
 
-  const regions = ['Africa', 'America', 'Asia', 'Europe', 'Oceania'];
-  console.log(countries);
+  const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 
   function displayRegionOptions() {
     setIsRegionOptionDisplayed(!isRegionOptionsDisplayed);
@@ -40,7 +40,7 @@ function App() {
     const filteredCountries = countries.filter((country: any) =>
       country.name.common
         .toLowerCase()
-        .includes(e.currentTarget.value.toLowerCase())
+        .includes(e.currentTarget.value.toLowerCase()),
     );
 
     setCountries(filteredCountries);
@@ -54,59 +54,48 @@ function App() {
     setIsRegionOptionDisplayed(!isRegionOptionsDisplayed);
 
     const filteredByRegion = apiData.filter(
-      (country: any) => country.region === region
+      (country: any) => country.region === region,
     );
     setCountries(filteredByRegion);
   }
 
-  console.log(region);
-
   return (
-    <ThemeContext.Provider value={isDarkMode}>
-      <nav className='flex items-center justify-between shadow py-6 lg:py-4 px-5 lg:px-12 mb-8'>
-        <p className='font-extrabold'>Where in the world?</p>
-        <button
-          className='flex items-center gap-2 font-semibold'
-          onClick={() => setIsDarkMode(!isDarkMode)}
-        >
-          {isDarkMode ? <IoMoonSharp /> : <IoMoonOutline />}
-          Dark Mode
-        </button>
-      </nav>
+    <ThemeContext.Provider value={darkMode}>
+      <Navbar />
 
-      <main className='px-5 lg:px-12 bg-grey-100 text-sm'>
-        <div className='flex flex-col lg:flex-row lg:justify-between mb-10'>
-          <div className='mb-10 relative'>
+      <main className="bg-grey-100 px-5 text-sm lg:px-12">
+        <div className="mb-10 flex flex-col lg:flex-row lg:justify-between">
+          <div className="relative mb-10">
             <input
-              type='search'
-              name='search'
-              placeholder='Search for a country'
-              className='w-full rounded-md box-shadow shadow-md bg-white pl-12 py-4 pr-3'
+              type="search"
+              name="search"
+              placeholder="Search for a country"
+              className="box-shadow w-full rounded-md bg-white py-4 pl-12 pr-3 shadow-md"
               onChange={handleInputChange}
             />
-            <span className='absolute top-1/2 -translate-y-1/2 left-4 text-gray-200'>
+            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-200">
               <FaSearch />
             </span>
           </div>
 
-          <div className='w-3/5 relative font-semibold'>
+          <div className="relative w-3/5 font-semibold">
             <button
-              className='w-full rounded-md box-shadow py-4 px-6 bg-white flex justify-between items-center'
+              className="box-shadow flex w-full items-center justify-between rounded-md bg-white px-6 py-4"
               onClick={displayRegionOptions}
             >
-              <span>{region ? region : 'Filter by Region'}</span>
+              <span>{region ? region : "Filter by Region"}</span>
               <span>
                 <FaChevronDown />
               </span>
             </button>
 
             {isRegionOptionsDisplayed && (
-              <div className='absolute rounded-md bg-white box-shadow px-5 py-3 grid w-full mt-1'>
+              <div className="box-shadow absolute mt-1 grid w-full rounded-md bg-white px-5 py-3">
                 {regions.map((region, index) => {
                   return (
                     <button
                       key={index}
-                      className='text-left w-full py-1 px-1'
+                      className="w-full px-1 py-1 text-left"
                       onClick={handleRegionClick}
                     >
                       {region}
@@ -118,36 +107,36 @@ function App() {
           </div>
         </div>
 
-        <section className='grid place-items-center gap-y-8'>
+        <section className="grid hidden place-items-center gap-y-8">
           {countries.map((country: any, index: number) => {
             return (
               <article
                 key={index}
-                className='w-[300px] overflow-hidden rounded-md box-shadow'
+                className="box-shadow w-[200px] overflow-hidden rounded-md"
               >
-                <div className='h-44 bg-white'>
+                <div className="h-44 bg-white">
                   <img
                     src={country.flags.svg}
                     alt={`Country flag of ${country.name.common}`}
-                    className='object-cover w-full h-full'
+                    className="h-full w-full object-cover"
                   />
                 </div>
 
-                <div className='px-6 pt-6 pb-12'>
-                  <h1 className='font-extrabold text-xl mb-3'>
+                <div className="px-6 pb-12 pt-6">
+                  <h1 className="mb-3 text-xl font-extrabold">
                     {country.name.common}
                   </h1>
 
-                  <p className='mb-1'>
-                    <span className='font-semibold'>Population:</span>{' '}
+                  <p className="mb-1">
+                    <span className="font-semibold">Population:</span>{" "}
                     <span>{country.population.toLocaleString()}</span>
                   </p>
-                  <p className='mb-1'>
-                    <span className='font-semibold'>Region:</span>{' '}
+                  <p className="mb-1">
+                    <span className="font-semibold">Region:</span>{" "}
                     <span>{country.region}</span>
                   </p>
                   <p>
-                    <span className='font-semibold'>Capital:</span>{' '}
+                    <span className="font-semibold">Capital:</span>{" "}
                     <span>{country.capital}</span>
                   </p>
                 </div>

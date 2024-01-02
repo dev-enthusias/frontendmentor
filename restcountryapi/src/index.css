@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   min-width: 375px;
   max-width: 1440px;
 
