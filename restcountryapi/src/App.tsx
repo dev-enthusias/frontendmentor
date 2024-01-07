@@ -1,11 +1,12 @@
-import { MouseEvent, useState } from "react";
+import { useState } from "react";
 
-import { FaChevronDown } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import SearchBar from "./components/SearchBar";
 
 import { ThemeProvider } from "./context/ThemeProvider";
+
+import Navbar from "./components/Navbar";
+import SearchBar from "./components/SearchBar";
+import Region from "./components/Region";
 
 export async function loader() {
   const response = await fetch("https://restcountries.com/v3.1/all");
@@ -14,29 +15,8 @@ export async function loader() {
 
 function App() {
   const apiData: any = useLoaderData();
-  //prettier-ignore
-  const [isRegionOptionsDisplayed, setIsRegionOptionDisplayed] = useState(false);
+
   const [countries, setCountries] = useState<any>(apiData);
-  const [region, setRegion] = useState<null | string>(null);
-
-  const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
-
-  function displayRegionOptions() {
-    setIsRegionOptionDisplayed(!isRegionOptionsDisplayed);
-  }
-
-  function handleRegionClick(e: MouseEvent<HTMLButtonElement>) {
-    const region = (e.target as HTMLButtonElement).textContent;
-
-    if (region) setRegion(region);
-
-    setIsRegionOptionDisplayed(!isRegionOptionsDisplayed);
-
-    const filteredByRegion = apiData.filter(
-      (country: any) => country.region === region,
-    );
-    setCountries(filteredByRegion);
-  }
 
   return (
     <ThemeProvider>
@@ -45,34 +25,7 @@ function App() {
       <main className="px-5 text-sm lg:px-12">
         <div className="mb-10 flex flex-col lg:flex-row lg:justify-between">
           <SearchBar />
-
-          <div className="relative w-3/5 font-semibold">
-            <button
-              className="box-shadow flex w-full items-center justify-between rounded-md bg-white px-6 py-4"
-              onClick={displayRegionOptions}
-            >
-              <span>{region ? region : "Filter by Region"}</span>
-              <span>
-                <FaChevronDown />
-              </span>
-            </button>
-
-            {isRegionOptionsDisplayed && (
-              <div className="box-shadow absolute mt-1 grid w-full rounded-md bg-white px-5 py-3">
-                {regions.map((region, index) => {
-                  return (
-                    <button
-                      key={index}
-                      className="w-full px-1 py-1 text-left"
-                      onClick={handleRegionClick}
-                    >
-                      {region}
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
+          <Region />
         </div>
 
         <section className="grid hidden place-items-center gap-y-8">
