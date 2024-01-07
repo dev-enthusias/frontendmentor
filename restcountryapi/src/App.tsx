@@ -1,16 +1,11 @@
-import { Dispatch, MouseEvent, createContext, useState } from "react";
+import { MouseEvent, useState } from "react";
 
 import { FaChevronDown } from "react-icons/fa";
 import { useLoaderData } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 
-interface ThemeValueProps {
-  darkMode: boolean;
-  setDarkMode: Dispatch<React.SetStateAction<boolean>>;
-}
-
-const ThemeContext = createContext<boolean | ThemeValueProps>(false);
+import ThemeProvider from "./context/ThemeProvider";
 
 export async function loader() {
   const response = await fetch("https://restcountries.com/v3.1/all");
@@ -19,7 +14,6 @@ export async function loader() {
 
 function App() {
   const apiData: any = useLoaderData();
-  const [darkMode, setDarkMode] = useState(false);
   //prettier-ignore
   const [isRegionOptionsDisplayed, setIsRegionOptionDisplayed] = useState(false);
   const [countries, setCountries] = useState<any>(apiData);
@@ -45,10 +39,10 @@ function App() {
   }
 
   return (
-    <ThemeContext.Provider value={darkMode}>
+    <ThemeProvider>
       <Navbar />
 
-      <main className="bg-grey-100 px-5 text-sm lg:px-12">
+      <main className="px-5 text-sm lg:px-12">
         <div className="mb-10 flex flex-col lg:flex-row lg:justify-between">
           <SearchBar />
 
@@ -119,7 +113,7 @@ function App() {
           })}
         </section>
       </main>
-    </ThemeContext.Provider>
+    </ThemeProvider>
   );
 }
 
