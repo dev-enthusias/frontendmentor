@@ -5,7 +5,7 @@ import { useLoaderData } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import SearchBar from "./components/SearchBar";
 
-import ThemeProvider from "./context/ThemeProvider";
+import { ThemeProvider } from "./context/ThemeProvider";
 
 export async function loader() {
   const response = await fetch("https://restcountries.com/v3.1/all");

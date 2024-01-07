@@ -28,4 +28,4 @@ const ThemeProvider = ({ children }: ComponentProps) => {
   );
 };
 
-export default ThemeProvider;
+export { ThemeProvider, ThemeContext };
