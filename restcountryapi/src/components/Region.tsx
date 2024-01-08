@@ -1,14 +1,21 @@
-import { MouseEvent, useState } from "react";
+import { MouseEvent, useContext, useState } from "react";
+
+import { useLoaderData } from "react-router-dom";
+
+import { CountryAPIContext } from "../context/CountryAPIContext";
 
 import { FaChevronDown } from "react-icons/fa";
 
 function Region() {
+  const countryAPIData: any = useLoaderData();
+  const { setCountries } = useContext(CountryAPIContext);
   const [region, setRegion] = useState<null | string>(null);
   const [isRegionOptionsDisplayed, setIsRegionOptionDisplayed] =
     useState(false);
 
   const regions = ["Africa", "Americas", "Asia", "Europe", "Oceania"];
 
+  // Toggle option menu
   function displayRegionOptions() {
     setIsRegionOptionDisplayed(!isRegionOptionsDisplayed);
   }
@@ -20,14 +27,15 @@ function Region() {
 
     setIsRegionOptionDisplayed(!isRegionOptionsDisplayed);
 
-    const filteredByRegion = apiData.filter(
+    //Filter data on option select
+    const filteredByRegion = countryAPIData.filter(
       (country: any) => country.region === region,
     );
     setCountries(filteredByRegion);
   }
 
   return (
-    <div className="relative font-medium w-48">
+    <div className="relative w-48 font-medium">
       <button
         className="box-shadow flex w-full items-center justify-between gap-5 rounded-md bg-dark-blue py-4 pl-6 pr-5"
         onClick={displayRegionOptions}

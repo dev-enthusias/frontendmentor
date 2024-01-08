@@ -11,12 +11,14 @@ type ComponentProps = {
   children: React.ReactNode;
 };
 
-const CountryAPIContext = createContext<null | APIContextProps>(null);
+const CountryAPIContext = createContext<APIContextProps>(null!);
 
 const CountryAPIProvider = ({ children }: ComponentProps) => {
   const countryAPIData = useLoaderData();
 
   const [countries, setCountries] = useState<any>(countryAPIData);
+
+  console.log(countries);
 
   return (
     <CountryAPIContext.Provider value={{ countries, setCountries }}>

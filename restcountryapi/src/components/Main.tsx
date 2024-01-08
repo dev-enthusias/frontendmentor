@@ -1,17 +1,14 @@
 import { useContext } from "react";
-
-import { useLoaderData } from "react-router-dom";
-
 import { ThemeContext } from "../context/ThemeContext";
+import { CountryAPIContext } from "../context/CountryAPIContext";
 
 import SearchBar from "./SearchBar";
 import Region from "./Region";
 import CountryCard from "./CountryCard";
 
 const Main = () => {
-  const apiData: any = useLoaderData();
-
   const { theme } = useContext(ThemeContext);
+  const { countries } = useContext(CountryAPIContext);
 
   return (
     <main
@@ -25,7 +22,7 @@ const Main = () => {
       </div>
 
       <section className="grid grid-cols-4 gap-16">
-        {apiData.map((country: any, index: number) => {
+        {countries.map((country: any, index: number) => {
           return <CountryCard key={index} country={country} />;
         })}
       </section>
