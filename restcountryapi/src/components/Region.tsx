@@ -27,9 +27,9 @@ function Region() {
   }
 
   return (
-    <div className="relative w-3/5 font-semibold">
+    <div className="relative font-semibold">
       <button
-        className="box-shadow flex w-full items-center justify-between rounded-md bg-white px-6 py-4"
+        className="box-shadow flex w-full items-center justify-between gap-4 rounded-md bg-white px-6 py-4"
         onClick={displayRegionOptions}
       >
         <span>{region ? region : "Filter by Region"}</span>
