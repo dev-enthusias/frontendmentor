@@ -11,11 +11,7 @@ const Main = () => {
   const { countries } = useContext(CountryAPIContext);
 
   return (
-    <main
-      className={`px-5 pt-8 text-sm lg:px-12 ${
-        theme === "dark" ? "bg-dark-blue-bg text-white" : "bg-slate-100"
-      }`}
-    >
+    <main className={`px-5 py-8 text-sm lg:px-12`}>
       <div className="mb-10 flex flex-col lg:flex-row lg:justify-between">
         <SearchBar />
         <Region />

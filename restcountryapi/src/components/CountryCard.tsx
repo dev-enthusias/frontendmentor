@@ -1,4 +1,15 @@
+import { useEffect, useRef, useState } from "react";
+
 const CountryCard = ({ country }: { country: any }) => {
+  const [isTruncated, setIsTruncated] = useState(false);
+  const textRef = useRef<HTMLHeadingElement>(null);
+
+  useEffect(() => {
+    if (textRef.current) {
+      setIsTruncated(textRef.current.scrollWidth > textRef.current.clientWidth);
+    }
+  }, [country.name.common]);
+
   return (
     <article className="box-shadow overflow-hidden rounded-md bg-dark-blue">
       <div className="h-40">
@@ -10,7 +21,22 @@ const CountryCard = ({ country }: { country: any }) => {
       </div>
 
       <div className="px-6 pb-12 pt-6">
-        <h1 className="mb-3 text-xl font-extrabold">{country.name.common}</h1>
+        <div className="group relative">
+          <h1
+            className="mb-3 overflow-hidden truncate whitespace-nowrap text-xl font-extrabold"
+            ref={textRef}
+          >
+            {country.name.common}
+          </h1>
+
+          {isTruncated && (
+            <div className="invisible absolute -top-10 h-full w-full py-1 group-hover:visible">
+              <div className="rounded-md bg-dark-blue-bg p-2 text-sm">
+                {country.name.common}
+              </div>
+            </div>
+          )}
+        </div>
 
         <p className="mb-1">
           <span className="font-semibold">Population:</span>{" "}
