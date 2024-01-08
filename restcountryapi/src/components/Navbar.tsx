@@ -1,6 +1,6 @@
 import { useContext } from "react";
 
-import { ThemeContext } from "../context/ThemeProvider";
+import { ThemeContext } from "../context/ThemeContext";
 
 import { IoMoonSharp, IoMoonOutline } from "react-icons/io5";
 

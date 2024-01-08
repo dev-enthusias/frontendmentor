@@ -1,4 +1,4 @@
-import { ThemeProvider } from "./context/ThemeProvider";
+import { ThemeProvider } from "./context/ThemeContext";
 
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";

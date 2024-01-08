@@ -2,7 +2,7 @@ import { useContext } from "react";
 
 import { useLoaderData } from "react-router-dom";
 
-import { ThemeContext } from "../context/ThemeProvider";
+import { ThemeContext } from "../context/ThemeContext";
 
 import SearchBar from "./SearchBar";
 import Region from "./Region";
