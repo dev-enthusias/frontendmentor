@@ -16,7 +16,7 @@ const CountryAPIContext = createContext<null | APIContextProps>(null);
 const CountryAPIProvider = ({ children }: ComponentProps) => {
   const countryAPIData = useLoaderData();
 
-  const [countries, setCountries] = useState(countryAPIData);
+  const [countries, setCountries] = useState<any>(countryAPIData);
 
   return (
     <CountryAPIContext.Provider value={{ countries, setCountries }}>

@@ -1,4 +1,5 @@
 import { ThemeProvider } from "./context/ThemeContext";
+import { CountryAPIProvider } from "./context/CountryAPIContext";
 
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
@@ -11,8 +12,10 @@ export async function loader() {
 function App() {
   return (
     <ThemeProvider>
-      <Navbar />
-      <Main />
+      <CountryAPIProvider>
+        <Navbar />
+        <Main />
+      </CountryAPIProvider>
     </ThemeProvider>
   );
 }
