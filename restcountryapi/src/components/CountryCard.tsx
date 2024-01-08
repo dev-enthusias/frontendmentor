@@ -1,7 +1,7 @@
 const CountryCard = ({ country }: { country: any }) => {
   return (
-    <article className="box-shadow w-[200px] overflow-hidden rounded-md">
-      <div className="h-44 bg-white">
+    <article className="box-shadow overflow-hidden rounded-md bg-dark-blue">
+      <div className="h-40">
         <img
           src={country.flags.svg}
           alt={`Country flag of ${country.name.common}`}

@@ -27,9 +27,9 @@ function Region() {
   }
 
   return (
-    <div className="relative font-semibold">
+    <div className="relative font-medium w-48">
       <button
-        className="box-shadow flex w-full items-center justify-between gap-4 rounded-md bg-white px-6 py-4"
+        className="box-shadow flex w-full items-center justify-between gap-5 rounded-md bg-dark-blue py-4 pl-6 pr-5"
         onClick={displayRegionOptions}
       >
         <span>{region ? region : "Filter by Region"}</span>
@@ -39,7 +39,7 @@ function Region() {
       </button>
 
       {isRegionOptionsDisplayed && (
-        <div className="box-shadow absolute mt-1 grid w-full rounded-md bg-white px-5 py-3">
+        <div className="box-shadow absolute mt-1 grid w-full rounded-md bg-dark-blue px-5 py-3">
           {regions.map((region, index) => {
             return (
               <button
