@@ -12,10 +12,12 @@ export async function loader() {
 function App() {
   return (
     <ThemeProvider>
-      <CountryAPIProvider>
-        <Navbar />
-        <Main />
-      </CountryAPIProvider>
+      <div className="min-h-screen bg-dark-blue-bg">
+        <CountryAPIProvider>
+          <Navbar />
+          <Main />
+        </CountryAPIProvider>
+      </div>
     </ThemeProvider>
   );
 }

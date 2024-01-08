@@ -18,8 +18,6 @@ const CountryAPIProvider = ({ children }: ComponentProps) => {
 
   const [countries, setCountries] = useState<any>(countryAPIData);
 
-  console.log(countries);
-
   return (
     <CountryAPIContext.Provider value={{ countries, setCountries }}>
       {children}
