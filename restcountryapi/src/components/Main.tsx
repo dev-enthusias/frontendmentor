@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
 import { CountryAPIContext } from "../context/CountryAPIContext";
 
 import SearchBar from "./SearchBar";
@@ -7,7 +6,6 @@ import Region from "./Region";
 import CountryCard from "./CountryCard";
 
 const Main = () => {
-  const { theme } = useContext(ThemeContext);
   const { countries } = useContext(CountryAPIContext);
 
   return (

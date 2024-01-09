@@ -1,7 +1,11 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { ThemeContext } from "../context/ThemeContext";
 
 const CountryCard = ({ country }: { country: any }) => {
+  const { theme } = useContext(ThemeContext);
+
   const [isTruncated, setIsTruncated] = useState(false);
+
   const textRef = useRef<HTMLHeadingElement>(null);
 
   useEffect(() => {
@@ -11,7 +15,13 @@ const CountryCard = ({ country }: { country: any }) => {
   }, [country.name.common]);
 
   return (
-    <article className="box-shadow overflow-hidden rounded-md bg-dark-blue">
+    <article
+      className={`box-shadow overflow-hidden rounded-md ${
+        theme === "dark"
+          ? "bg-dark-blue text-white"
+          : "bg-grey-100 text-dark-blue-text"
+      }`}
+    >
       <div className="h-40">
         <img
           src={country.flags.svg}
